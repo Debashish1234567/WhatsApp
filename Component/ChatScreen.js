@@ -14,14 +14,15 @@ import { useState, useEffect } from "react";
 
 // import Head from './head';
 // or any files within the Snack
-const arr1 = [""];
+
 let a = null;
 export default function ChatScreen({ navigation }) {
   const [value, setValue] = useState("");
   const [num, setnum] = useState(16);
+  const[arr1,setArr1]=useState([])
   const onSend = () => {
     console.warn("Sending new message", value);
-    arr1.push(value);
+    setArr1((newVal)=>([...newVal,value]))
     setValue("");
   };
   useEffect(() => {
@@ -129,18 +130,9 @@ export default function ChatScreen({ navigation }) {
               </View>
             </View>
           ))}
-          {/* {arr1.map((data)=>(
-            <View key={num}
-            style={{
-              ...styles.self,
-              
-            }}>
-            <Text style={styles.msg}>{data}</Text>
-            <View style={{ alignItems: 'flex-end' }}>
-              <Text style={{ color: 'grey' }}>9.20 am</Text>
-            </View>
-          </View>
-          ))} */}
+           {arr1.map((item)=>(<View key={item} style={{...styles.self,width: item.length >= 30 ? 250 : 150,}}><Text>{item}</Text><View style={{ alignItems: "flex-end" }}>
+                  <Text style={{ color: "grey" }}>9.20 am</Text>
+                </View></View>))}
         </ScrollView>
         <View
           style={{
